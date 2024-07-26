@@ -1,8 +1,15 @@
 from rest_framework import viewsets
 from .models import Dentist, Patient, Appointment, Treatment, AppointmentHistory, Payment
-from .serializers import DentistSerializer, PatientSerializer, AppointmentSerializer, TreatmentSerializer, AppointmentHistorySerializer, PaymentSerializer
+from .serializers import UserSerializer, DentistSerializer, PatientSerializer, AppointmentSerializer, TreatmentSerializer, AppointmentHistorySerializer, PaymentSerializer
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
 
 class DentistViewSet(viewsets.ModelViewSet):
     queryset = Dentist.objects.all()
